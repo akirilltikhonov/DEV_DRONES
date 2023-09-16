@@ -1,0 +1,17 @@
+spring:
+  application.name: dev-drones
+  liquibase:
+    enabled: true
+    change-log: classpath:/liquibase/db.changelog-master.xml
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        hbm2ddl:
+          auto: validate
