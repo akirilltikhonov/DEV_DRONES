@@ -2,6 +2,8 @@ package com.musala.dev.drones.infra.persistence.jpa.repository.impl;
 
 import com.musala.dev.drones.app.port.DroneRepository;
 import com.musala.dev.drones.domain.model.Drone;
+import com.musala.dev.drones.infra.persistence.jpa.mapper.DroneMapper;
+import com.musala.dev.drones.infra.persistence.jpa.repository.DroneJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -9,8 +11,12 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class DroneRepositoryImpl implements DroneRepository {
 
+    private final DroneJpaRepository droneJpaRepository;
+    private final DroneMapper droneMapper;
+
     @Override
     public Drone register(Drone drone) {
-        return null;
+        var droneEntity = droneMapper.toDroneEntity(drone);
+        return droneMapper.toDrone(droneJpaRepository.save(droneEntity));
     }
 }

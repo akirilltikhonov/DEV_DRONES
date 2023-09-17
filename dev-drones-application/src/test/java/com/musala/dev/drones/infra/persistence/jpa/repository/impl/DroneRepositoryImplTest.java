@@ -1,0 +1,47 @@
+package com.musala.dev.drones.infra.persistence.jpa.repository.impl;
+
+import com.musala.dev.drones.domain.model.Drone;
+import com.musala.dev.drones.infra.persistence.jpa.entity.DroneEntity;
+import com.musala.dev.drones.infra.persistence.jpa.mapper.DroneMapper;
+import com.musala.dev.drones.infra.persistence.jpa.repository.DroneJpaRepository;
+import org.jeasy.random.EasyRandom;
+import org.jeasy.random.EasyRandomParameters;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.doReturn;
+
+@ExtendWith(MockitoExtension.class)
+class DroneRepositoryImplTest {
+
+    @InjectMocks
+    private DroneRepositoryImpl droneRepository;
+    @Mock
+    private DroneJpaRepository droneJpaRepository;
+    @Mock
+    private DroneMapper droneMapper;
+
+    private final EasyRandom random = new EasyRandom(
+            new EasyRandomParameters()
+                    .seed(1L)
+    );
+
+    @Test
+    void register() {
+        var drone = Drone.builder()
+                .build();
+
+        var droneEntityToSave = random.nextObject(DroneEntity.class);
+        doReturn(droneEntityToSave).when(droneMapper).toDroneEntity(drone);
+        var savedDroneEntity = random.nextObject(DroneEntity.class);
+        doReturn(savedDroneEntity).when(droneJpaRepository).save(droneEntityToSave);
+        var savedDrone = Drone.builder()
+                .build();
+        doReturn(savedDrone).when(droneMapper).toDrone(savedDroneEntity);
+        assertThat(droneRepository.register(drone)).isEqualTo(savedDrone);
+    }
+}
