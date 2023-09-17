@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd"
+                   logicalFilePath="${path_independent}">
+
+    <changeSet logicalFilePath="${path_independent}" id="2023-09-17--01-add-enum-1" author="ktikhonov">
+        <comment>create enum model enum_model</comment>
+        <sql><![CDATA[
+            CREATE TYPE enum_model AS enum(
+            'LIGHTWEIGHT', 'MIDDLEWEIGHT', 'CRUISERWEIGHT', 'HEAVYWEIGHT'
+            );
+            ]]></sql>
+    </changeSet>
+
+    <changeSet logicalFilePath="${path_independent}" id="2023-09-17--01-add-enum-2" author="ktikhonov">
+        <comment>create enum state enum_state</comment>
+        <sql><![CDATA[
+            CREATE TYPE enum_state AS enum(
+            'IDLE', 'LOADING', 'LOADED', 'DELIVERING', 'DELIVERED', 'RETURNING'
+            );
+            ]]></sql>
+    </changeSet>
+</databaseChangeLog>
