@@ -5,4 +5,6 @@ import com.musala.dev.drones.domain.model.Drone;
 public interface DroneRepository {
 
     Drone register(Drone drone);
+
+    Drone findBySerialNumber(String serialNumber);
 }

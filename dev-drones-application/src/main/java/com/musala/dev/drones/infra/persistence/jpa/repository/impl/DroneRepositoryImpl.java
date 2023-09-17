@@ -19,4 +19,11 @@ public class DroneRepositoryImpl implements DroneRepository {
         var droneEntity = droneMapper.toDroneEntity(drone);
         return droneMapper.toDrone(droneJpaRepository.save(droneEntity));
     }
+
+    @Override
+    public Drone findBySerialNumber(String serialNumber) {
+        var droneEntity = droneJpaRepository.findById(serialNumber)
+                .orElseThrow();
+        return droneMapper.toDrone(droneEntity);
+    }
 }
