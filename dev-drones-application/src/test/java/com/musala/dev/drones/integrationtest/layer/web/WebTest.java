@@ -1,12 +1,13 @@
 package com.musala.dev.drones.integrationtest.layer.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.musala.dev.drones.infra.api.rest.controller.DroneController;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,7 +18,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest
-@Import(TestWebConfiguration.class)
+@MockBean({
+        DroneController.class,
+})
 public class WebTest {
 
     protected static final String DRONE_BASE_PATH = "/dev-drones/";
