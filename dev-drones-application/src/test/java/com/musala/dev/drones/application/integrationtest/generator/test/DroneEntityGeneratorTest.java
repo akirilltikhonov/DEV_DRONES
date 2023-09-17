@@ -12,16 +12,18 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class DroneEntityGeneratorTest {
 
-    private void assertNextDroneEntity(DroneEntity r) {
-        assertThat(r).isNotNull();
-        assertThat(r).hasNoNullFieldsOrPropertiesExcept();
-        assertThat(r).hasAllNullFieldsOrPropertiesExcept(
+    private void assertNextDroneEntity(DroneEntity drone) {
+        assertThat(drone).isNotNull();
+        assertThat(drone).hasNoNullFieldsOrPropertiesExcept();
+        assertThat(drone).hasAllNullFieldsOrPropertiesExcept(
                 "serialNumber"
                 , "model"
                 , "weightLimit"
                 , "batteryCapacity"
                 , "state"
+                , "medications"
         );
+        assertThat(drone.getMedications()).isEmpty();
     }
 
     @Test

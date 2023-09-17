@@ -8,12 +8,17 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "drones")
@@ -41,4 +46,25 @@ public class DroneEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "state")
     private State state;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            mappedBy = "drone",
+            orphanRemoval = true)
+    private List<MedicationEntity> medications = new ArrayList<>();
+
+    public void addMedication(MedicationEntity ingredient) {
+        medications.add(ingredient);
+        ingredient.setDrone(this);
+    }
+
+    public void removeMedication(MedicationEntity ingredient) {
+        medications.remove(ingredient);
+        ingredient.setDrone(null);
+    }
+
+    public void linkMedications(List<MedicationEntity> ingredients) {
+        ingredients.forEach(i -> i.setDrone(this));
+    }
 }

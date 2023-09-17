@@ -5,6 +5,9 @@ import com.musala.dev.drones.application.domain.model.enums.State;
 import lombok.Builder;
 import lombok.Value;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Value
 @Builder(toBuilder = true)
 public class Drone {
@@ -14,4 +17,6 @@ public class Drone {
     Integer weightLimit;
     Integer batteryCapacity;
     State state;
+    @Builder.Default
+    List<Medication> medications = new ArrayList<>();
 }
