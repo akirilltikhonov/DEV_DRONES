@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.musala.dev.drones</groupId>
     <artifactId>dev-drones-application</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0.0-SNAPSHOT</version>
     <properties>
         <java.version>17</java.version>
         <testcontainers.version>1.17.4</testcontainers.version>

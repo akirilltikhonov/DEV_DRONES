@@ -5,7 +5,7 @@
 
     <groupId>com.musala.dev.drones</groupId>
     <artifactId>dev-drones</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0.0-SNAPSHOT</version>
     <name>dev-drones</name>
     <description>dev-drones</description>
     <packaging>pom</packaging>
