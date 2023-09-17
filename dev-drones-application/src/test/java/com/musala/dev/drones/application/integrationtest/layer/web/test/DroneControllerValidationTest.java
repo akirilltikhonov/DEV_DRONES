@@ -29,7 +29,7 @@ class DroneControllerValidationTest extends WebTest {
         var request = objectMapper.readValue(file, RegisterDroneDto.class);
         String jsonRequest = objectMapper.writeValueAsString(request);
 
-        perform("register", jsonRequest)
+        perform(post(DRONE_BASE_PATH + "register"), jsonRequest)
                 .andExpect(status().isBadRequest())
                 .andReturn().getResponse();
     }
@@ -47,7 +47,7 @@ class DroneControllerValidationTest extends WebTest {
                 .build();
         String jsonRequest = objectMapper.writeValueAsString(request);
 
-        perform("register", jsonRequest)
+        perform(post(DRONE_BASE_PATH + "register"), jsonRequest)
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
     }

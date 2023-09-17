@@ -12,9 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest
@@ -37,8 +37,8 @@ public class WebTest {
         assertThat(context).isNotNull();
     }
 
-    protected ResultActions perform(String path, String jsonRequest) throws Exception {
-        return mockMvc.perform(post(DRONE_BASE_PATH + path)
+    protected ResultActions perform(MockHttpServletRequestBuilder builder, String jsonRequest) throws Exception {
+        return mockMvc.perform(builder
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonRequest));
     }
