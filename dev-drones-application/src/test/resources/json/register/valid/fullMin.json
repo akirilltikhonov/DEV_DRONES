@@ -1,0 +1,6 @@
+{
+  "serialNumber": "${haveToBeUnique}",
+  "model": "LIGHTWEIGHT",
+  "batteryCapacity": 0,
+  "weightLimit": 0
+}
