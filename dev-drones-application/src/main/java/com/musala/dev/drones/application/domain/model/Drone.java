@@ -2,6 +2,7 @@ package com.musala.dev.drones.application.domain.model;
 
 import com.musala.dev.drones.application.domain.model.enums.Model;
 import com.musala.dev.drones.application.domain.model.enums.State;
+import com.musala.dev.drones.application.domain.service.MedicationsWeightCounter;
 import lombok.Builder;
 import lombok.Value;
 
@@ -19,4 +20,8 @@ public class Drone {
     State state;
     @Builder.Default
     List<Medication> medications = new ArrayList<>();
+
+    public Integer totalWeight() {
+        return MedicationsWeightCounter.count(medications);
+    }
 }

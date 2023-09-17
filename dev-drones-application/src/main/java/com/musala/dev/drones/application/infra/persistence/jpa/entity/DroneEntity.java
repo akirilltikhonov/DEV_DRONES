@@ -54,17 +54,17 @@ public class DroneEntity {
             orphanRemoval = true)
     private List<MedicationEntity> medications = new ArrayList<>();
 
-    public void addMedication(MedicationEntity ingredient) {
-        medications.add(ingredient);
-        ingredient.setDrone(this);
+    public void addMedication(MedicationEntity medication) {
+        medications.add(medication);
+        medication.setDrone(this);
     }
 
-    public void removeMedication(MedicationEntity ingredient) {
-        medications.remove(ingredient);
-        ingredient.setDrone(null);
+    public void removeMedication(MedicationEntity medication) {
+        medications.remove(medication);
+        medication.setDrone(null);
     }
 
-    public void linkMedications(List<MedicationEntity> ingredients) {
-        ingredients.forEach(i -> i.setDrone(this));
+    public void addMedications(List<MedicationEntity> medications) {
+        medications.forEach(this::addMedication);
     }
 }

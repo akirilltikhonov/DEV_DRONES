@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
+
 @Mapper(
         componentModel = "spring"
         , unmappedSourcePolicy = ReportingPolicy.ERROR
@@ -15,8 +17,14 @@ import org.mapstruct.ReportingPolicy;
 public interface MedicationMapper {
 
     @Mapping(target = "drone", ignore = true)
-    MedicationEntity toMedicationEntity(Medication ingredient);
+    MedicationEntity toMedicationEntity(Medication medication);
+
+    @Mapping(target = "drone", ignore = true)
+    List<MedicationEntity> toMedicationEntities(List<Medication> medications);
 
     @BeanMapping(ignoreUnmappedSourceProperties = {"drone"})
-    Medication toMedication(MedicationEntity ingredientEntity);
+    Medication toMedication(MedicationEntity medicationEntity);
+
+    @BeanMapping(ignoreUnmappedSourceProperties = {"drone"})
+    List<Medication> toMedications(List<MedicationEntity> medicationEntity);
 }

@@ -15,7 +15,7 @@ public abstract class DroneDecoratorMapper implements DroneMapper {
     public DroneEntity toDroneEntity(Drone drone) {
         var droneEntity = droneMapper.toDroneEntity(drone);
         if (droneEntity != null) {
-            droneEntity.linkMedications(droneEntity.getMedications());
+            droneEntity.addMedications(droneEntity.getMedications());
         }
         return droneEntity;
     }

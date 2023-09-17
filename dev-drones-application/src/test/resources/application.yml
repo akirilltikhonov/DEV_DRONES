@@ -12,6 +12,8 @@ spring:
     open-in-view: false
     properties:
       hibernate:
+        show_sql: true
+        format_sql: true
         dialect: org.hibernate.dialect.PostgreSQL10Dialect
         hbm2ddl:
           auto: validate

@@ -2,10 +2,10 @@ package com.musala.dev.drones.application.infra.persistence.jpa.repository.impl;
 
 import com.musala.dev.drones.application.domain.exception.notfound.DroneNotFoundException;
 import com.musala.dev.drones.application.domain.model.Drone;
-import com.musala.dev.drones.application.integrationtest.generator.DroneEntityGenerator;
 import com.musala.dev.drones.application.infra.persistence.jpa.entity.DroneEntity;
 import com.musala.dev.drones.application.infra.persistence.jpa.mapper.DroneMapper;
 import com.musala.dev.drones.application.infra.persistence.jpa.repository.DroneJpaRepository;
+import com.musala.dev.drones.application.integrationtest.generator.DroneEntityGenerator;
 import org.assertj.core.api.Assertions;
 import org.jeasy.random.EasyRandom;
 import org.jeasy.random.EasyRandomParameters;
@@ -17,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.doReturn;
 
@@ -38,8 +37,7 @@ class DroneRepositoryImplTest {
 
     @Test
     void register() {
-        var drone = Drone.builder()
-                .build();
+        var drone = random.nextObject(Drone.class);
 
         var droneEntityToSave = random.nextObject(DroneEntity.class);
         doReturn(droneEntityToSave).when(droneMapper).toDroneEntity(drone);
