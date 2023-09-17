@@ -1,2 +1,2 @@
 org.springframework.context.ApplicationContextInitializer=\
-com.musala.dev.drones.infra.testcontainer.PostgresTestcontainerInitializer
+com.musala.dev.drones.application.infra.testcontainer.PostgresTestcontainerInitializer
