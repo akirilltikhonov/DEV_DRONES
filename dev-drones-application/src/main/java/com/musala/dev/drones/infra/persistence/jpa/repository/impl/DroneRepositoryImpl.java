@@ -1,6 +1,7 @@
 package com.musala.dev.drones.infra.persistence.jpa.repository.impl;
 
 import com.musala.dev.drones.app.port.DroneRepository;
+import com.musala.dev.drones.domain.exception.notfound.DroneNotFoundException;
 import com.musala.dev.drones.domain.model.Drone;
 import com.musala.dev.drones.infra.persistence.jpa.mapper.DroneMapper;
 import com.musala.dev.drones.infra.persistence.jpa.repository.DroneJpaRepository;
@@ -23,7 +24,7 @@ public class DroneRepositoryImpl implements DroneRepository {
     @Override
     public Drone findBySerialNumber(String serialNumber) {
         var droneEntity = droneJpaRepository.findById(serialNumber)
-                .orElseThrow();
+                .orElseThrow(() -> new DroneNotFoundException(serialNumber));
         return droneMapper.toDrone(droneEntity);
     }
 }
