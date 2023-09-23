@@ -17,3 +17,12 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQL10Dialect
         hbm2ddl:
           auto: validate
+
+drone-executor:
+  exponential-backoff:
+    init-time: 5000
+    factor: 2
+    max-time: 40000
+  number-of-threads: 2
+  drones-per-request: 10
+  await-termination: 2000

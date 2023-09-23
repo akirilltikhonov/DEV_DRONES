@@ -9,4 +9,6 @@ public interface DroneService {
     List<Medication> getLoadedMedications(String serialNumber);
 
     Integer getBatteryLevel(String serialNumber);
+
+    boolean checkDronesBatteryLevel();
 }

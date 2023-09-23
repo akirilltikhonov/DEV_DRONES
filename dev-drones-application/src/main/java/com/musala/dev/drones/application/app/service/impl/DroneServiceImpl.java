@@ -25,4 +25,10 @@ public class DroneServiceImpl implements DroneService {
         var drone = droneRepository.findBySerialNumber(serialNumber);
         return drone.getBatteryLevel();
     }
+
+    @Override
+    public boolean checkDronesBatteryLevel() {
+        System.out.println("checkDronesBatteryLevel");
+        return true;
+    }
 }
