@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd"
+                   logicalFilePath="${path_independent}">
+
+    <changeSet id="2023-09-23--01-state-battery-constraint-1" author="ktikhonov">
+        <comment>add constraint for table drones. State can not be LOADING if battery less 25</comment>
+        <sql>
+            <![CDATA[
+                ALTER TABLE drones ADD CONSTRAINT check_state_and_battery_level CHECK (battery_level >= 25 OR state NOT IN ('LOADING'));
+            ]]>
+        </sql>
+    </changeSet>
+</databaseChangeLog>
