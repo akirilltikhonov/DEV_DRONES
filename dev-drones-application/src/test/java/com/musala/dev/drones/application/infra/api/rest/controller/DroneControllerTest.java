@@ -6,6 +6,7 @@ import com.musala.dev.drones.api.dto.RegisterDroneDto;
 import com.musala.dev.drones.api.dto.load.LoadMedicationDto;
 import com.musala.dev.drones.api.dto.load.LoadMedicationRequestDto;
 import com.musala.dev.drones.application.app.port.DroneRepository;
+import com.musala.dev.drones.application.app.service.DroneService;
 import com.musala.dev.drones.application.app.service.MedicationService;
 import com.musala.dev.drones.application.domain.model.Drone;
 import com.musala.dev.drones.application.domain.model.Medication;
@@ -44,6 +45,8 @@ class DroneControllerTest {
     private MedicationResponseMapper medicationResponseMapper;
     @Mock
     private MedicationService medicationService;
+    @Mock
+    private DroneService droneService;
 
     private final EasyRandom random = new EasyRandom();
 
@@ -76,5 +79,15 @@ class DroneControllerTest {
         doReturn(loadedMedicationsDto).when(medicationResponseMapper).toMedications(loadedMedications);
 
         assertThat(droneController.loadMedications(serialNumber, requestDto)).isEqualTo(ResponseEntity.ok(loadedMedicationsDto));
+    }
+
+    @Test
+    void getBatteryLevel() {
+        String serialNumber = UUID.randomUUID().toString();
+
+        Integer batteryLevel = 50;
+        doReturn(batteryLevel).when(droneService).getBatteryLevel(serialNumber);
+
+        assertThat(droneController.getBatteryLevel(serialNumber)).isEqualTo(ResponseEntity.ok(batteryLevel));
     }
 }

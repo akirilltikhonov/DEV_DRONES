@@ -17,6 +17,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -57,9 +58,9 @@ class DroneControllerWebTest extends WebTest {
         String serialNumber = "serialNumber";
         var requestDtos = LoadMedicationRequestDto.builder()
                 .medications(List.of(random.nextObject(LoadMedicationDto.class).toBuilder()
-                                .name("name")
-                                .weight(500)
-                                .code("CODE")
+                        .name("name")
+                        .weight(500)
+                        .code("CODE")
                         .build()))
                 .build();
 
@@ -74,5 +75,19 @@ class DroneControllerWebTest extends WebTest {
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
         assertThat(response.getContentAsString()).isEqualTo(expectedResponse);
+    }
+
+    @Test
+    void getBatteryLevel() throws Exception {
+        String serialNumber = "serialNumber";
+
+        Integer batteryLevel = 50;
+        doReturn(ResponseEntity.ok(batteryLevel)).when(controller)
+                .getBatteryLevel(serialNumber);
+
+        var response = perform(get(DRONE_BASE_PATH + serialNumber + "/battery"), serialNumber)
+                .andExpect(status().isOk())
+                .andReturn().getResponse();
+        assertThat(response.getContentAsString()).isEqualTo(batteryLevel.toString());
     }
 }

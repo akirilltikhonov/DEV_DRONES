@@ -5,6 +5,7 @@ import com.musala.dev.drones.api.dto.MedicationDto;
 import com.musala.dev.drones.api.dto.RegisterDroneDto;
 import com.musala.dev.drones.api.dto.load.LoadMedicationRequestDto;
 import com.musala.dev.drones.application.app.port.DroneRepository;
+import com.musala.dev.drones.application.app.service.DroneService;
 import com.musala.dev.drones.application.app.service.MedicationService;
 import com.musala.dev.drones.application.infra.api.rest.mapper.DroneRequestMapper;
 import com.musala.dev.drones.application.infra.api.rest.mapper.DroneResponseMapper;
@@ -14,6 +15,7 @@ import com.musala.dev.drones.client.DroneControllerApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -37,6 +39,7 @@ public class DroneController implements DroneControllerApi {
     private final MedicationRequestMapper medicationRequestMapper;
     private final MedicationResponseMapper medicationResponseMapper;
     private final MedicationService medicationService;
+    private final DroneService droneService;
 
     @PostMapping(value = "/register")
     public ResponseEntity<DroneDto> register(@RequestBody @Valid RegisterDroneDto registerDroneDto) {
@@ -53,5 +56,11 @@ public class DroneController implements DroneControllerApi {
         var medicationsToLoad = medicationRequestMapper.toMedications(requestDto.medications());
         var loadedMedications = medicationService.loadMedications(serialNumber, medicationsToLoad);
         return ResponseEntity.ok(medicationResponseMapper.toMedications(loadedMedications));
+    }
+
+    @GetMapping(value = "/{serialNumber}/battery")
+    public ResponseEntity<Integer> getBatteryLevel(@PathVariable @NotNull String serialNumber) {
+        Integer batteryLevel = droneService.getBatteryLevel(serialNumber);
+        return ResponseEntity.ok(batteryLevel);
     }
 }
