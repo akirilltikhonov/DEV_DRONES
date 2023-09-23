@@ -18,7 +18,7 @@ public class DroneEntityGenerator {
                     .seed(1L)
                     .stringLengthRange(15, 20)
                     .randomize(named("weightLimit"), () -> ThreadLocalRandom.current().nextInt(0, 501))
-                    .randomize(named("batteryCapacity"), () -> ThreadLocalRandom.current().nextInt(0, 101))
+                    .randomize(named("batteryLevel"), () -> ThreadLocalRandom.current().nextInt(0, 101))
                     .randomize(named("medications"), () -> new ArrayList<MedicationEntity>())
     );
 
@@ -38,8 +38,8 @@ public class DroneEntityGenerator {
             if (pattern.getWeightLimit() != null) {
                 drone.setWeightLimit(pattern.getWeightLimit());
             }
-            if (pattern.getBatteryCapacity() != null) {
-                drone.setBatteryCapacity(pattern.getBatteryCapacity());
+            if (pattern.getBatteryLevel() != null) {
+                drone.setBatteryLevel(pattern.getBatteryLevel());
             }
             if (pattern.getState() != null) {
                 drone.setState(pattern.getState());

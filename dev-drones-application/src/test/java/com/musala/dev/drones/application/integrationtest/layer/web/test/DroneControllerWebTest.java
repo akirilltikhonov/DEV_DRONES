@@ -38,7 +38,7 @@ class DroneControllerWebTest extends WebTest {
         var registerDroneDto = random.nextObject(RegisterDroneDto.class)
                 .toBuilder()
                 .weightLimit(500)
-                .batteryCapacity(100)
+                .batteryLevel(100)
                 .build();
 
         var droneDto = random.nextObject(DroneDto.class);

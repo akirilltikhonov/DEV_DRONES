@@ -18,7 +18,7 @@ public record RegisterDroneDto(
         @NotNull
         @Min(0)
         @Max(100)
-        Integer batteryCapacity,
+        Integer batteryLevel,
         @NotNull
         @Min(0)
         @Max(500)

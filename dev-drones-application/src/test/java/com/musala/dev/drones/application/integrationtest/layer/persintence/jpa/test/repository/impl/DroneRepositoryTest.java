@@ -34,21 +34,21 @@ public class DroneRepositoryTest extends JpaTest {
     @Test
     void findAvailableDronesForLoading() {
         var serialNumber1 = droneJpaRepository.save(DroneEntityGenerator.next(DronePattern.builder()
-                        .batteryCapacity(50)
+                        .batteryLevel(50)
                         .state(State.IDLE)
                         .build()))
                 .getSerialNumber();
         var serialNumber2 = droneJpaRepository.save(DroneEntityGenerator.next(DronePattern.builder()
-                        .batteryCapacity(25)
+                        .batteryLevel(25)
                         .state(State.IDLE)
                         .build()))
                 .getSerialNumber();
         droneJpaRepository.save(DroneEntityGenerator.next(DronePattern.builder()
-                .batteryCapacity(24)
+                .batteryLevel(24)
                 .state(State.IDLE)
                 .build()));
         droneJpaRepository.save(DroneEntityGenerator.next(DronePattern.builder()
-                .batteryCapacity(50)
+                .batteryLevel(50)
                 .state(State.DELIVERED)
                 .build()));
 

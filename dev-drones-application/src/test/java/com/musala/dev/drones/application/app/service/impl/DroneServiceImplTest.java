@@ -45,11 +45,11 @@ class DroneServiceImplTest {
 
         var drone = Drone.builder()
                 .serialNumber(serialNumber)
-                .batteryCapacity(50)
+                .batteryLevel(50)
                 .build();
         doReturn(drone).when(droneRepository).findBySerialNumber(serialNumber);
 
         assertThat(droneService.getBatteryLevel(serialNumber))
-                .isEqualTo(drone.getBatteryCapacity());
+                .isEqualTo(drone.getBatteryLevel());
     }
 }

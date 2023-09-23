@@ -39,8 +39,8 @@ public class DroneEntity {
     @Column(name = "weight_limit")
     private Integer weightLimit;
 
-    @Column(name = "battery_capacity")
-    private Integer batteryCapacity;
+    @Column(name = "battery_level")
+    private Integer batteryLevel;
 
     @Type(type = "pg_enum")
     @Enumerated(EnumType.STRING)

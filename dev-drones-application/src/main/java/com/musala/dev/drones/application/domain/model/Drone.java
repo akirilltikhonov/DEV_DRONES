@@ -16,7 +16,7 @@ public class Drone {
     String serialNumber;
     Model model;
     Integer weightLimit;
-    Integer batteryCapacity;
+    Integer batteryLevel;
     State state;
     @Builder.Default
     List<Medication> medications = new ArrayList<>();

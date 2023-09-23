@@ -19,7 +19,7 @@ class DroneEntityGeneratorTest {
                 "serialNumber"
                 , "model"
                 , "weightLimit"
-                , "batteryCapacity"
+                , "batteryLevel"
                 , "state"
                 , "medications"
         );
@@ -42,7 +42,7 @@ class DroneEntityGeneratorTest {
                 .serialNumber("serialNumber")
                 .model(Model.LIGHTWEIGHT)
                 .weightLimit(500)
-                .batteryCapacity(100)
+                .batteryLevel(100)
                 .state(State.IDLE)
                 .build();
         final var drone = DroneEntityGenerator.next(pattern);

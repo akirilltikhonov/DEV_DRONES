@@ -12,6 +12,6 @@ public class DronePattern {
     String serialNumber;
     Model model;
     Integer weightLimit;
-    Integer batteryCapacity;
+    Integer batteryLevel;
     State state;
 }

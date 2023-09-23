@@ -26,7 +26,7 @@ class RegisterDroneTest extends ApplicationTest {
                 .serialNumber(UUID.randomUUID().toString())
                 .model(Model.LIGHTWEIGHT)
                 .weightLimit(500)
-                .batteryCapacity(100)
+                .batteryLevel(100)
                 .build();
 
         var response = droneController.register(request);

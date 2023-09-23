@@ -23,6 +23,6 @@ public class DroneServiceImpl implements DroneService {
     @Override
     public Integer getBatteryLevel(String serialNumber) {
         var drone = droneRepository.findBySerialNumber(serialNumber);
-        return drone.getBatteryCapacity();
+        return drone.getBatteryLevel();
     }
 }

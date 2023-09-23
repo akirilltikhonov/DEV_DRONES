@@ -18,7 +18,7 @@ public class DroneRepositoryCustomImpl implements DroneRepositoryCustom {
         final String sql = "SELECT d FROM DroneEntity d " +
                 "WHERE 1 = 1 " +
                 (filter.minBatteryLevel() != null
-                        ? "AND d.batteryCapacity >= :minBatteryLevel " : "") +
+                        ? "AND d.batteryLevel >= :minBatteryLevel " : "") +
                 (filter.states() != null
                         ? "AND d.state IN :states " : "");
 

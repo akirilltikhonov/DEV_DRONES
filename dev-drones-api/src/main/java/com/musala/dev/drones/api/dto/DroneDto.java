@@ -11,7 +11,7 @@ public record DroneDto(
         String serialNumber,
         Model model,
         Integer weightLimit,
-        Integer batteryCapacity,
+        Integer batteryLevel,
         State state,
         List<MedicationDto> medications
 ) {

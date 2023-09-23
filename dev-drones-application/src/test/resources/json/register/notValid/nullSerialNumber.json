@@ -1,6 +1,6 @@
 {
   "serialNumber": null,
   "model": "LIGHTWEIGHT",
-  "batteryCapacity": 100,
+  "batteryLevel": 100,
   "weightLimit": 500
 }

@@ -17,7 +17,7 @@
             <column name="weight_limit" type="integer">
                 <constraints nullable="false"/>
             </column>
-            <column name="battery_capacity" type="integer">
+            <column name="battery_level" type="integer">
                 <constraints nullable="false"/>
             </column>
             <column name="state" type="enum_state">
