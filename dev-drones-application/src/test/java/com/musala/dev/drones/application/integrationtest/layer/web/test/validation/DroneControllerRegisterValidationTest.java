@@ -1,4 +1,4 @@
-package com.musala.dev.drones.application.integrationtest.layer.web.test;
+package com.musala.dev.drones.application.integrationtest.layer.web.test.validation;
 
 import com.musala.dev.drones.api.dto.RegisterDroneDto;
 import com.musala.dev.drones.application.integrationtest.layer.web.WebTest;
@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class DroneControllerValidationTest extends WebTest {
+class DroneControllerRegisterValidationTest extends WebTest {
 
     static Stream<File> isNotValidToRegister() throws IOException {
         return Arrays.stream(Objects.requireNonNull(

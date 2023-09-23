@@ -1,0 +1,14 @@
+{
+  "medications": [
+    {
+      "name": "name_1",
+      "weight": 500,
+      "code": "CODE_1"
+    },
+    {
+      "name": null,
+      "weight": 0,
+      "code": "CODE_2"
+    }
+  ]
+}

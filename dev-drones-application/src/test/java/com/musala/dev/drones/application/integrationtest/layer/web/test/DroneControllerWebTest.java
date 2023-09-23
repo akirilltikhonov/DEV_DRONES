@@ -56,7 +56,11 @@ class DroneControllerWebTest extends WebTest {
     void loadMedications() throws Exception {
         String serialNumber = "serialNumber";
         var requestDtos = LoadMedicationRequestDto.builder()
-                .medications(List.of(random.nextObject(LoadMedicationDto.class)))
+                .medications(List.of(random.nextObject(LoadMedicationDto.class).toBuilder()
+                                .name("name")
+                                .weight(500)
+                                .code("CODE")
+                        .build()))
                 .build();
 
         var medicationDtos = List.of(random.nextObject(MedicationDto.class));
