@@ -11,4 +11,6 @@ public interface DroneRepository {
     Drone findBySerialNumber(String serialNumber);
 
     List<String> findAvailableDronesForLoading();
+
+    List<Drone> findDrones(Integer lessThanBatteryLevel, Integer numberOfDrones);
 }

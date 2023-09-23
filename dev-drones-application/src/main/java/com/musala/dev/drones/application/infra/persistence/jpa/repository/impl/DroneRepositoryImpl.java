@@ -9,6 +9,7 @@ import com.musala.dev.drones.application.infra.persistence.jpa.entity.DroneEntit
 import com.musala.dev.drones.application.infra.persistence.jpa.mapper.DroneMapper;
 import com.musala.dev.drones.application.infra.persistence.jpa.repository.DroneJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -43,5 +44,12 @@ public class DroneRepositoryImpl implements DroneRepository {
         return droneEntity.stream()
                 .map(DroneEntity::getSerialNumber)
                 .toList();
+    }
+
+    @Override
+    public List<Drone> findDrones(Integer batteryLevelLessThan, Integer numberOfDrones) {
+        var droneEntities = droneJpaRepository
+                .findByBatteryLevelIsLessThanEqual(batteryLevelLessThan, PageRequest.of(0, numberOfDrones));
+        return droneMapper.toDrones(droneEntities);
     }
 }

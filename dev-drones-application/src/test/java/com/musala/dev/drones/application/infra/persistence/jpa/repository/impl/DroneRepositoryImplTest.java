@@ -16,6 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -84,5 +85,24 @@ class DroneRepositoryImplTest {
                 .build()));
         doReturn(droneEntities).when(droneJpaRepository).findByFilter(filter);
         assertThat(droneRepository.findAvailableDronesForLoading()).isEqualTo(List.of(serialNumber));
+    }
+
+    @Test
+    void findDrones() {
+        int minBatteryLevel = 50;
+        int numberOfDrones = 10;
+
+        String serialNumber = "1L";
+        var droneEntities = List.of(DroneEntityGenerator.next(DronePattern.builder()
+                .serialNumber(serialNumber)
+                .build()));
+        doReturn(droneEntities).when(droneJpaRepository).findByBatteryLevelIsLessThanEqual(minBatteryLevel, PageRequest.of(0, numberOfDrones));
+
+        var drones = List.of(Drone.builder()
+                .serialNumber(serialNumber)
+                .build());
+        doReturn(drones).when(droneMapper).toDrones(droneEntities);
+
+        assertThat(droneRepository.findDrones(minBatteryLevel, numberOfDrones)).isEqualTo(drones);
     }
 }

@@ -7,6 +7,8 @@ import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
+
 @Mapper(
         componentModel = "spring"
         , unmappedSourcePolicy = ReportingPolicy.ERROR
@@ -20,4 +22,6 @@ public interface DroneMapper {
     DroneEntity toDroneEntity(Drone drone);
 
     Drone toDrone(DroneEntity drone);
+
+    List<Drone> toDrones(List<DroneEntity> drones);
 }

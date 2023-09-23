@@ -25,4 +25,5 @@ drone-executor:
     max-time: 40000
   number-of-threads: 2
   drones-per-request: 10
+  min-battery-level-to-log: 50
   await-termination: 2000

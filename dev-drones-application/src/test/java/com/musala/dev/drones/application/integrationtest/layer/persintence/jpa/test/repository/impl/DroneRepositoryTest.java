@@ -1,6 +1,7 @@
 package com.musala.dev.drones.application.integrationtest.layer.persintence.jpa.test.repository.impl;
 
 import com.musala.dev.drones.application.app.port.DroneRepository;
+import com.musala.dev.drones.application.domain.model.Drone;
 import com.musala.dev.drones.application.domain.model.enums.State;
 import com.musala.dev.drones.application.infra.persistence.jpa.mapper.DroneMapper;
 import com.musala.dev.drones.application.infra.persistence.jpa.repository.DroneJpaRepository;
@@ -10,7 +11,9 @@ import com.musala.dev.drones.application.integrationtest.layer.persintence.jpa.J
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -54,5 +57,31 @@ public class DroneRepositoryTest extends JpaTest {
 
         var serialNumbers = droneRepository.findAvailableDronesForLoading();
         assertThat(serialNumbers).containsAll(List.of(serialNumber1, serialNumber2));
+    }
+
+    @Test
+    void findDrones() {
+        List<String> okSerialNumbers = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            var okSerialNumber = droneJpaRepository.save(DroneEntityGenerator.next(DronePattern.builder()
+                            .batteryLevel(75)
+                            .build()))
+                    .getSerialNumber();
+            okSerialNumbers.add(okSerialNumber);
+        }
+
+        for (int i = 0; i < 15; i++) {
+            droneJpaRepository.save(DroneEntityGenerator.next(DronePattern.builder()
+                    .batteryLevel(35)
+                    .build()));
+        }
+
+        var drones = droneRepository.findDrones(50, 10);
+
+        assertThat(drones.size()).isEqualTo(10);
+        drones.stream()
+                .map(Drone::getSerialNumber)
+                .collect(Collectors.toSet())
+                .forEach(sn -> assertThat(okSerialNumbers.contains(sn)).isFalse());
     }
 }

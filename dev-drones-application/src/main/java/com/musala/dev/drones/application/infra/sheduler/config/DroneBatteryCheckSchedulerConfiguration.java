@@ -1,6 +1,6 @@
 package com.musala.dev.drones.application.infra.sheduler.config;
 
-import com.musala.dev.drones.application.app.service.DroneService;
+import com.musala.dev.drones.application.app.service.DroneCheckBatteryService;
 import com.musala.dev.drones.application.domain.service.backoff.ExponentialBackoffStrategy;
 import com.musala.dev.drones.application.infra.sheduler.DroneBatteryCheckScheduler;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,10 +19,10 @@ public class DroneBatteryCheckSchedulerConfiguration {
             @Value("${drone-executor.exponential-backoff.init-time:500}") long initTime,
             @Value("${drone-executor.exponential-backoff.factor-time:2}") float factor,
             @Value("${drone-executor.exponential-backoff.max-time:60000}") long maxTime,
-            DroneService droneService
+            DroneCheckBatteryService droneCheckBatteryService
     ) {
         var backoffStrategy = new ExponentialBackoffStrategy(initTime, factor, maxTime);
         var executorService = Executors.newFixedThreadPool(nTreads);
-        return new DroneBatteryCheckScheduler(nTreads, awaitTermination, executorService, droneService, backoffStrategy);
+        return new DroneBatteryCheckScheduler(nTreads, awaitTermination, executorService, droneCheckBatteryService, backoffStrategy);
     }
 }

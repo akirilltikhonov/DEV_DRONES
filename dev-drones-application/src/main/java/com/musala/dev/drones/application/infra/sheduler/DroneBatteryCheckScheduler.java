@@ -1,6 +1,6 @@
 package com.musala.dev.drones.application.infra.sheduler;
 
-import com.musala.dev.drones.application.app.service.DroneService;
+import com.musala.dev.drones.application.app.service.DroneCheckBatteryService;
 import com.musala.dev.drones.application.domain.service.backoff.BackoffStrategy;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class DroneBatteryCheckScheduler {
     private final int nTreads;
     private final int awaitTermination;
     private final ExecutorService executorService;
-    private final DroneService droneService;
+    private final DroneCheckBatteryService droneCheckBatteryService;
     private final BackoffStrategy exponentialBackoffStrategy;
 
     @PostConstruct
@@ -41,7 +41,7 @@ public class DroneBatteryCheckScheduler {
 
     void runWithExponentialBackoff() {
         while (!executorService.isShutdown()) {
-            var increaseDelay = droneService.checkDronesBatteryLevel();
+            var increaseDelay = droneCheckBatteryService.checkDronesBatteryLevel();
             exponentialBackoffStrategy.reconfigure(increaseDelay);
             long delay = exponentialBackoffStrategy.calculateBackoffTime();
             try {

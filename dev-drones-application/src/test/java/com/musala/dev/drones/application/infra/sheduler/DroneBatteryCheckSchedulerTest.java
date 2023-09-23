@@ -1,6 +1,6 @@
 package com.musala.dev.drones.application.infra.sheduler;
 
-import com.musala.dev.drones.application.app.service.DroneService;
+import com.musala.dev.drones.application.app.service.DroneCheckBatteryService;
 import com.musala.dev.drones.application.domain.service.backoff.BackoffStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ class DroneBatteryCheckSchedulerTest {
     private final int nTreads = 1;
     private final int awaitTermination = 1;
     private final ExecutorService executorService = mock(ExecutorService.class);
-    private final DroneService droneService = mock(DroneService.class);
+    private final DroneCheckBatteryService droneCheckBatteryService = mock(DroneCheckBatteryService.class);
     private final BackoffStrategy exponentialBackoffStrategy = mock(BackoffStrategy.class);
 
     @BeforeEach
@@ -37,7 +37,7 @@ class DroneBatteryCheckSchedulerTest {
                 nTreads,
                 awaitTermination,
                 executorService,
-                droneService,
+                droneCheckBatteryService,
                 exponentialBackoffStrategy
         );
     }
@@ -83,7 +83,7 @@ class DroneBatteryCheckSchedulerTest {
         doReturn(false)
                 .when(executorService).isShutdown();
         doReturn(false).doReturn(true)
-                .when(droneService).checkDronesBatteryLevel();
+                .when(droneCheckBatteryService).checkDronesBatteryLevel();
         doNothing().when(exponentialBackoffStrategy)
                 .reconfigure(anyBoolean());
         doReturn(0L).doReturn(1L).doReturn(-1L)
@@ -92,7 +92,7 @@ class DroneBatteryCheckSchedulerTest {
         assertThatThrownBy(() -> droneBatteryCheckScheduler.runWithExponentialBackoff())
                 .isInstanceOf(RuntimeException.class);
 
-        verify(droneService, times(3)).checkDronesBatteryLevel();
+        verify(droneCheckBatteryService, times(3)).checkDronesBatteryLevel();
         verify(exponentialBackoffStrategy).reconfigure(false);
         verify(exponentialBackoffStrategy, times(2)).reconfigure(true);
         verify(exponentialBackoffStrategy, times(3)).calculateBackoffTime();
@@ -103,7 +103,7 @@ class DroneBatteryCheckSchedulerTest {
         doReturn(false).doReturn(false).doReturn(true)
                 .when(executorService).isShutdown();
         doReturn(false).doReturn(true)
-                .when(droneService).checkDronesBatteryLevel();
+                .when(droneCheckBatteryService).checkDronesBatteryLevel();
         doNothing().when(exponentialBackoffStrategy)
                 .reconfigure(anyBoolean());
         doReturn(0L).doReturn(1L)
@@ -111,7 +111,7 @@ class DroneBatteryCheckSchedulerTest {
 
         droneBatteryCheckScheduler.runWithExponentialBackoff();
 
-        verify(droneService, times(2)).checkDronesBatteryLevel();
+        verify(droneCheckBatteryService, times(2)).checkDronesBatteryLevel();
         verify(exponentialBackoffStrategy).reconfigure(false);
         verify(exponentialBackoffStrategy).reconfigure(true);
         verify(exponentialBackoffStrategy, times(2)).calculateBackoffTime();
