@@ -82,6 +82,18 @@ class DroneControllerTest {
     }
 
     @Test
+    void getLoadedMedications() {
+        String serialNumber = UUID.randomUUID().toString();
+
+        var loadedMedications = List.of(random.nextObject(Medication.class));
+        doReturn(loadedMedications).when(droneService).getLoadedMedications(serialNumber);
+        var loadedMedicationsDto = List.of(random.nextObject(MedicationDto.class));
+        doReturn(loadedMedicationsDto).when(medicationResponseMapper).toMedications(loadedMedications);
+
+        assertThat(droneController.getLoadedMedications(serialNumber)).isEqualTo(ResponseEntity.ok(loadedMedicationsDto));
+    }
+
+    @Test
     void getBatteryLevel() {
         String serialNumber = UUID.randomUUID().toString();
 

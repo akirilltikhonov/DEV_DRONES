@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -25,10 +26,11 @@ class DroneControllerLoadMedicationsValidationTest extends WebTest {
     @ParameterizedTest
     @MethodSource("isNotValidToLoadMedications")
     void isNotValidToLoadMedications(File file) throws Exception {
+        String serialNumber = UUID.randomUUID().toString();
         var request = objectMapper.readValue(file, LoadMedicationRequestDto.class);
         String jsonRequest = objectMapper.writeValueAsString(request);
 
-        perform(put(DRONE_BASE_PATH + "serialNumber"), jsonRequest)
+        perform(put(DRONE_BASE_PATH + serialNumber + "/medications"), jsonRequest)
                 .andExpect(status().isBadRequest())
                 .andReturn().getResponse();
     }
@@ -41,10 +43,11 @@ class DroneControllerLoadMedicationsValidationTest extends WebTest {
     @ParameterizedTest
     @MethodSource("isValidToLoadMedications")
     void isValidToLoadMedications(File file) throws Exception {
+        String serialNumber = UUID.randomUUID().toString();
         var request = objectMapper.readValue(file, LoadMedicationRequestDto.class);
         String jsonRequest = objectMapper.writeValueAsString(request);
 
-        perform(put(DRONE_BASE_PATH + "serialNumber"), jsonRequest)
+        perform(put(DRONE_BASE_PATH + serialNumber + "/medications"), jsonRequest)
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
     }

@@ -48,13 +48,19 @@ public class DroneController implements DroneControllerApi {
         return ResponseEntity.ok(droneResponseMapper.toDroneDto(registeredDrone));
     }
 
-    @PutMapping(value = "/{serialNumber}")
+    @PutMapping(value = "/{serialNumber}/medications")
     public ResponseEntity<List<MedicationDto>> loadMedications(
             @PathVariable @NotNull String serialNumber,
             @RequestBody @NotNull @Valid LoadMedicationRequestDto requestDto
     ) {
         var medicationsToLoad = medicationRequestMapper.toMedications(requestDto.medications());
         var loadedMedications = medicationService.loadMedications(serialNumber, medicationsToLoad);
+        return ResponseEntity.ok(medicationResponseMapper.toMedications(loadedMedications));
+    }
+
+    @GetMapping(value = "/{serialNumber}/medications")
+    public ResponseEntity<List<MedicationDto>> getLoadedMedications(@PathVariable @NotNull String serialNumber) {
+        var loadedMedications = droneService.getLoadedMedications(serialNumber);
         return ResponseEntity.ok(medicationResponseMapper.toMedications(loadedMedications));
     }
 

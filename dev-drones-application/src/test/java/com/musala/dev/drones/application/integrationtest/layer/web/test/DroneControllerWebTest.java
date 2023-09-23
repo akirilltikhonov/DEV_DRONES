@@ -71,7 +71,23 @@ class DroneControllerWebTest extends WebTest {
         String jsonRequest = objectMapper.writeValueAsString(requestDtos);
         String expectedResponse = objectMapper.writeValueAsString(medicationDtos);
 
-        var response = perform(put(DRONE_BASE_PATH + "serialNumber"), jsonRequest)
+        var response = perform(put(DRONE_BASE_PATH + serialNumber + "/medications"), jsonRequest)
+                .andExpect(status().isOk())
+                .andReturn().getResponse();
+        assertThat(response.getContentAsString()).isEqualTo(expectedResponse);
+    }
+
+    @Test
+    void getLoadedMedications() throws Exception {
+        String serialNumber = "serialNumber";
+
+        var medicationDtos = List.of(random.nextObject(MedicationDto.class));
+        doReturn(ResponseEntity.ok(medicationDtos)).when(controller)
+                .getLoadedMedications(serialNumber);
+
+        String expectedResponse = objectMapper.writeValueAsString(medicationDtos);
+
+        var response = perform(get(DRONE_BASE_PATH + serialNumber + "/medications"), serialNumber)
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
         assertThat(response.getContentAsString()).isEqualTo(expectedResponse);
