@@ -32,7 +32,7 @@ public class ExponentialBackoffStrategy implements BackoffStrategy {
     @Override
     public long calculateBackoffTime() {
         if (level == 0) {
-            return 0L;
+            return initTime;
         }
 
         long backoffTime = (long) (initTime * Math.pow(factor, level - 1));

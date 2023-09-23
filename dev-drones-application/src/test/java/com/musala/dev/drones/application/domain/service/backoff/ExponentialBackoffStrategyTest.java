@@ -13,10 +13,10 @@ class ExponentialBackoffStrategyTest {
         final long maxTime = 60000L;
         final var strategy1 = new ExponentialBackoffStrategy(initTime, factor, 60000L);
 
-        assertThat(strategy1.calculateBackoffTime()).isEqualTo(0);
+        assertThat(strategy1.calculateBackoffTime()).isEqualTo(initTime);
 
         strategy1.reconfigure(false);
-        assertThat(strategy1.calculateBackoffTime()).isEqualTo(0);
+        assertThat(strategy1.calculateBackoffTime()).isEqualTo(initTime);
 
         strategy1.reconfigure(true);
         assertThat(strategy1.calculateBackoffTime()).isEqualTo(initTime);
@@ -36,7 +36,7 @@ class ExponentialBackoffStrategyTest {
         assertThat(strategy1.calculateBackoffTime()).isEqualTo(maxTime);
 
         strategy1.reconfigure(false);
-        assertThat(strategy1.calculateBackoffTime()).isEqualTo(0);
+        assertThat(strategy1.calculateBackoffTime()).isEqualTo(initTime);
     }
 
     @Test
@@ -46,10 +46,10 @@ class ExponentialBackoffStrategyTest {
         final long maxTime = 60000L;
         final var strategy2 = new ExponentialBackoffStrategy(initTime, factor, maxTime);
 
-        assertThat(strategy2.calculateBackoffTime()).isEqualTo(0);
+        assertThat(strategy2.calculateBackoffTime()).isEqualTo(initTime);
 
         strategy2.reconfigure(false);
-        assertThat(strategy2.calculateBackoffTime()).isEqualTo(0);
+        assertThat(strategy2.calculateBackoffTime()).isEqualTo(initTime);
 
         strategy2.reconfigure(true);
         assertThat(strategy2.calculateBackoffTime()).isEqualTo(initTime);
@@ -69,6 +69,6 @@ class ExponentialBackoffStrategyTest {
         assertThat(strategy2.calculateBackoffTime()).isEqualTo(maxTime);
 
         strategy2.reconfigure(false);
-        assertThat(strategy2.calculateBackoffTime()).isEqualTo(0);
+        assertThat(strategy2.calculateBackoffTime()).isEqualTo(initTime);
     }
 }
