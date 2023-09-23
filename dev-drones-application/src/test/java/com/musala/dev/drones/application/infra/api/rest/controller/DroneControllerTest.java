@@ -3,6 +3,7 @@ package com.musala.dev.drones.application.infra.api.rest.controller;
 import com.musala.dev.drones.api.dto.DroneDto;
 import com.musala.dev.drones.api.dto.MedicationDto;
 import com.musala.dev.drones.api.dto.RegisterDroneDto;
+import com.musala.dev.drones.api.dto.load.LoadMedicationDto;
 import com.musala.dev.drones.api.dto.load.LoadMedicationRequestDto;
 import com.musala.dev.drones.application.app.port.DroneRepository;
 import com.musala.dev.drones.application.app.service.MedicationService;
@@ -63,15 +64,17 @@ class DroneControllerTest {
     @Test
     void loadMedications() {
         String serialNumber = UUID.randomUUID().toString();
-        var medicationsRequestDto = List.of(random.nextObject(LoadMedicationRequestDto.class));
+        var requestDto = LoadMedicationRequestDto.builder()
+                .medications(List.of(random.nextObject(LoadMedicationDto.class)))
+                .build();
 
         var medicationsToLoad = List.of(random.nextObject(Medication.class));
-        doReturn(medicationsToLoad).when(medicationRequestMapper).toMedications(medicationsRequestDto);
+        doReturn(medicationsToLoad).when(medicationRequestMapper).toMedications(requestDto.medications());
         var loadedMedications = List.of(random.nextObject(Medication.class));
         doReturn(loadedMedications).when(medicationService).loadMedications(serialNumber, medicationsToLoad);
         var loadedMedicationsDto = List.of(random.nextObject(MedicationDto.class));
         doReturn(loadedMedicationsDto).when(medicationResponseMapper).toMedications(loadedMedications);
 
-        assertThat(droneController.loadMedications(serialNumber, medicationsRequestDto)).isEqualTo(ResponseEntity.ok(loadedMedicationsDto));
+        assertThat(droneController.loadMedications(serialNumber, requestDto)).isEqualTo(ResponseEntity.ok(loadedMedicationsDto));
     }
 }

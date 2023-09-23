@@ -2,10 +2,10 @@ package com.musala.dev.drones.api.dto.load;
 
 import lombok.Builder;
 
+import java.util.List;
+
 @Builder
 public record LoadMedicationRequestDto(
-        String name,
-        Integer weight,
-        String code
+        List<LoadMedicationDto> medications
 ) {
 }

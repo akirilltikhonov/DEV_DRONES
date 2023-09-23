@@ -3,6 +3,7 @@ package com.musala.dev.drones.application.integrationtest.layer.web.test;
 import com.musala.dev.drones.api.dto.DroneDto;
 import com.musala.dev.drones.api.dto.MedicationDto;
 import com.musala.dev.drones.api.dto.RegisterDroneDto;
+import com.musala.dev.drones.api.dto.load.LoadMedicationDto;
 import com.musala.dev.drones.api.dto.load.LoadMedicationRequestDto;
 import com.musala.dev.drones.application.infra.api.rest.controller.DroneController;
 import com.musala.dev.drones.application.integrationtest.layer.web.WebTest;
@@ -54,7 +55,9 @@ class DroneControllerWebTest extends WebTest {
     @Test
     void loadMedications() throws Exception {
         String serialNumber = "serialNumber";
-        var requestDtos = List.of(random.nextObject(LoadMedicationRequestDto.class));
+        var requestDtos = LoadMedicationRequestDto.builder()
+                .medications(List.of(random.nextObject(LoadMedicationDto.class)))
+                .build();
 
         var medicationDtos = List.of(random.nextObject(MedicationDto.class));
         doReturn(ResponseEntity.ok(List.of(random.nextObject(MedicationDto.class)))).when(controller)

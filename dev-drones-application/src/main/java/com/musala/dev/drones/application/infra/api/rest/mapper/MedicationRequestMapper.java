@@ -1,6 +1,6 @@
 package com.musala.dev.drones.application.infra.api.rest.mapper;
 
-import com.musala.dev.drones.api.dto.load.LoadMedicationRequestDto;
+import com.musala.dev.drones.api.dto.load.LoadMedicationDto;
 import com.musala.dev.drones.application.domain.model.Medication;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,7 +16,7 @@ import java.util.List;
 public interface MedicationRequestMapper {
 
     @Mapping(target = "medicationId", ignore = true)
-    Medication toMedication(LoadMedicationRequestDto requestDto);
+    Medication toMedication(LoadMedicationDto medication);
 
-    List<Medication> toMedications(List<LoadMedicationRequestDto> requestDtos);
+    List<Medication> toMedications(List<LoadMedicationDto> medications);
 }
