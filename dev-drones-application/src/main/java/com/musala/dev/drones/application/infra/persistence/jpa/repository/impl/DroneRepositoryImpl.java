@@ -11,6 +11,7 @@ import com.musala.dev.drones.application.infra.persistence.jpa.repository.DroneJ
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,6 +26,15 @@ public class DroneRepositoryImpl implements DroneRepository {
     public Drone register(Drone drone) {
         var droneEntity = droneMapper.toDroneEntity(drone);
         return droneMapper.toDrone(droneJpaRepository.save(droneEntity));
+    }
+
+    @Override
+    @Transactional
+    public Drone findToLoadMedication(String serialNumber) {
+        var droneEntity = droneJpaRepository.findBySerialNumberAndState(serialNumber, State.IDLE)
+                .orElseThrow(() -> new DroneNotFoundException(serialNumber, State.IDLE));
+        droneEntity.setState(State.LOADING);
+        return droneMapper.toDrone(droneEntity);
     }
 
     @Override

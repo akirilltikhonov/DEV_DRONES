@@ -36,7 +36,7 @@ class MedicationServiceImplTest {
         List<Medication> medications = List.of(Medication.builder().build());
 
         var drone = Drone.builder().serialNumber(UUID.randomUUID().toString()).build();
-        doReturn(drone).when(droneRepository).findBySerialNumber(serialNumber);
+        doReturn(drone).when(droneRepository).findToLoadMedication(serialNumber);
 
         var loadedMedications = List.of(Medication.builder().medicationId(1L).build());
         doReturn(loadedMedications).when(medicationRepository).loadMedications(serialNumber, medications);

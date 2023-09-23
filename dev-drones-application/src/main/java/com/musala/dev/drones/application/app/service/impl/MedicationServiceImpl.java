@@ -20,7 +20,7 @@ public class MedicationServiceImpl implements MedicationService {
 
     @Override
     public List<Medication> loadMedications(String serialNumber, List<Medication> medications) {
-        var drone = droneRepository.findBySerialNumber(serialNumber);
+        var drone = droneRepository.findToLoadMedication(serialNumber);
         medicationLoadValidation.checkTotalWeight(drone, medications);
         return medicationRepository.loadMedications(serialNumber, medications);
     }
