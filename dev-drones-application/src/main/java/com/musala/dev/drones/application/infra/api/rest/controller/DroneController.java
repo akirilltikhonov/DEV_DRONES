@@ -64,6 +64,12 @@ public class DroneController implements DroneControllerApi {
         return ResponseEntity.ok(medicationResponseMapper.toMedications(loadedMedications));
     }
 
+    @GetMapping(value = "/available-drones")
+    public ResponseEntity<List<String>> getAvailableDronesForLoading() {
+        var serialNumbers = droneRepository.findAvailableDronesForLoading();
+        return ResponseEntity.ok(serialNumbers);
+    }
+
     @GetMapping(value = "/{serialNumber}/battery")
     public ResponseEntity<Integer> getBatteryLevel(@PathVariable @NotNull String serialNumber) {
         Integer batteryLevel = droneService.getBatteryLevel(serialNumber);

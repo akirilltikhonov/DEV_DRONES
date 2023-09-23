@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
@@ -88,6 +89,20 @@ class DroneControllerWebTest extends WebTest {
         String expectedResponse = objectMapper.writeValueAsString(medicationDtos);
 
         var response = perform(get(DRONE_BASE_PATH + serialNumber + "/medications"), serialNumber)
+                .andExpect(status().isOk())
+                .andReturn().getResponse();
+        assertThat(response.getContentAsString()).isEqualTo(expectedResponse);
+    }
+
+    @Test
+    void getAvailableDronesForLoading() throws Exception {
+        var serialNumbers = List.of(UUID.randomUUID().toString());
+        doReturn(ResponseEntity.ok(serialNumbers)).when(controller)
+                .getAvailableDronesForLoading();
+
+        String expectedResponse = objectMapper.writeValueAsString(serialNumbers);
+
+        var response = perform(get(DRONE_BASE_PATH + "/available-drones"), "dump")
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
         assertThat(response.getContentAsString()).isEqualTo(expectedResponse);

@@ -94,6 +94,14 @@ class DroneControllerTest {
     }
 
     @Test
+    void getAvailableDronesForLoading() {
+        var serialNumbers = List.of(UUID.randomUUID().toString());
+        doReturn(serialNumbers).when(droneRepository).findAvailableDronesForLoading();
+        assertThat(droneController.getAvailableDronesForLoading())
+                .isEqualTo(ResponseEntity.ok(serialNumbers));
+    }
+
+    @Test
     void getBatteryLevel() {
         String serialNumber = UUID.randomUUID().toString();
 
