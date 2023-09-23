@@ -95,10 +95,10 @@ class DroneControllerTest {
 
     @Test
     void getAvailableDronesForLoading() {
-        var serialNumbers = List.of(UUID.randomUUID().toString());
-        doReturn(serialNumbers).when(droneRepository).findAvailableDronesForLoading();
+        var drones = List.of(Drone.builder().serialNumber(UUID.randomUUID().toString()).build());
+        doReturn(drones).when(droneService).findAvailableDronesForLoading();
         assertThat(droneController.getAvailableDronesForLoading())
-                .isEqualTo(ResponseEntity.ok(serialNumbers));
+                .isEqualTo(ResponseEntity.ok(drones));
     }
 
     @Test

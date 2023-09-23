@@ -5,6 +5,7 @@ import com.musala.dev.drones.api.dto.MedicationDto;
 import com.musala.dev.drones.api.dto.RegisterDroneDto;
 import com.musala.dev.drones.api.dto.load.LoadMedicationDto;
 import com.musala.dev.drones.api.dto.load.LoadMedicationRequestDto;
+import com.musala.dev.drones.application.domain.model.Drone;
 import com.musala.dev.drones.application.infra.api.rest.controller.DroneController;
 import com.musala.dev.drones.application.integrationtest.layer.web.WebTest;
 import org.jeasy.random.EasyRandom;
@@ -96,7 +97,7 @@ class DroneControllerWebTest extends WebTest {
 
     @Test
     void getAvailableDronesForLoading() throws Exception {
-        var serialNumbers = List.of(UUID.randomUUID().toString());
+        var serialNumbers = List.of(Drone.builder().serialNumber(UUID.randomUUID().toString()).build());
         doReturn(ResponseEntity.ok(serialNumbers)).when(controller)
                 .getAvailableDronesForLoading();
 

@@ -7,6 +7,7 @@ import com.musala.dev.drones.api.dto.load.LoadMedicationRequestDto;
 import com.musala.dev.drones.application.app.port.DroneRepository;
 import com.musala.dev.drones.application.app.service.DroneService;
 import com.musala.dev.drones.application.app.service.MedicationService;
+import com.musala.dev.drones.application.domain.model.Drone;
 import com.musala.dev.drones.application.infra.api.rest.mapper.DroneRequestMapper;
 import com.musala.dev.drones.application.infra.api.rest.mapper.DroneResponseMapper;
 import com.musala.dev.drones.application.infra.api.rest.mapper.MedicationRequestMapper;
@@ -65,9 +66,9 @@ public class DroneController implements DroneControllerApi {
     }
 
     @GetMapping(value = "/available-drones")
-    public ResponseEntity<List<String>> getAvailableDronesForLoading() {
-        var serialNumbers = droneRepository.findAvailableDronesForLoading();
-        return ResponseEntity.ok(serialNumbers);
+    public ResponseEntity<List<Drone>> getAvailableDronesForLoading() {
+        var availableDrones = droneService.findAvailableDronesForLoading();
+        return ResponseEntity.ok(availableDrones);
     }
 
     @GetMapping(value = "/{serialNumber}/battery")

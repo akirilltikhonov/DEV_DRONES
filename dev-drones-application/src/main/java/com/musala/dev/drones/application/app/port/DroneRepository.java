@@ -1,10 +1,9 @@
 package com.musala.dev.drones.application.app.port;
 
 import com.musala.dev.drones.application.domain.model.Drone;
-import com.musala.dev.drones.application.domain.model.enums.State;
+import com.musala.dev.drones.application.domain.model.filter.DroneFilter;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface DroneRepository {
 
@@ -14,7 +13,7 @@ public interface DroneRepository {
 
     Drone findBySerialNumber(String serialNumber);
 
-    List<String> findAvailableDronesForLoading();
+    List<Drone> findByFilter(DroneFilter filter);
 
     List<Drone> findDrones(Integer lessThanBatteryLevel, Integer numberOfDrones);
 }

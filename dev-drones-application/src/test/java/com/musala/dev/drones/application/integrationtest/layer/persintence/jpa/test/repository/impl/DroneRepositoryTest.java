@@ -3,6 +3,7 @@ package com.musala.dev.drones.application.integrationtest.layer.persintence.jpa.
 import com.musala.dev.drones.application.app.port.DroneRepository;
 import com.musala.dev.drones.application.domain.model.Drone;
 import com.musala.dev.drones.application.domain.model.enums.State;
+import com.musala.dev.drones.application.domain.model.filter.DroneFilter;
 import com.musala.dev.drones.application.infra.persistence.jpa.mapper.DroneMapper;
 import com.musala.dev.drones.application.infra.persistence.jpa.repository.DroneJpaRepository;
 import com.musala.dev.drones.application.integrationtest.generator.DroneEntityGenerator;
@@ -35,7 +36,7 @@ public class DroneRepositoryTest extends JpaTest {
     }
 
     @Test
-    void findAvailableDronesForLoading() {
+    void findByFilter() {
         var serialNumber1 = droneJpaRepository.save(DroneEntityGenerator.next(DronePattern.builder()
                         .batteryLevel(50)
                         .state(State.IDLE)
@@ -55,7 +56,14 @@ public class DroneRepositoryTest extends JpaTest {
                 .state(State.DELIVERED)
                 .build()));
 
-        var serialNumbers = droneRepository.findAvailableDronesForLoading();
+        var filter = DroneFilter.builder()
+                .minBatteryLevel(25)
+                .states(List.of(State.IDLE))
+                .build();
+        var serialNumbers = droneRepository.findByFilter(filter)
+                .stream()
+                .map(Drone::getSerialNumber)
+                .toList();
         assertThat(serialNumbers).containsAll(List.of(serialNumber1, serialNumber2));
     }
 

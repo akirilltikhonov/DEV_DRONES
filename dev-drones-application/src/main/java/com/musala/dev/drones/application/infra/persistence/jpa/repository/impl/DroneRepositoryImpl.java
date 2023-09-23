@@ -5,7 +5,6 @@ import com.musala.dev.drones.application.domain.exception.notfound.DroneNotFound
 import com.musala.dev.drones.application.domain.model.Drone;
 import com.musala.dev.drones.application.domain.model.enums.State;
 import com.musala.dev.drones.application.domain.model.filter.DroneFilter;
-import com.musala.dev.drones.application.infra.persistence.jpa.entity.DroneEntity;
 import com.musala.dev.drones.application.infra.persistence.jpa.mapper.DroneMapper;
 import com.musala.dev.drones.application.infra.persistence.jpa.repository.DroneJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -45,15 +44,9 @@ public class DroneRepositoryImpl implements DroneRepository {
     }
 
     @Override
-    public List<String> findAvailableDronesForLoading() {
-        var filter = DroneFilter.builder()
-                .minBatteryLevel(25)
-                .states(List.of(State.IDLE))
-                .build();
+    public List<Drone> findByFilter(DroneFilter filter) {
         var droneEntity = droneJpaRepository.findByFilter(filter);
-        return droneEntity.stream()
-                .map(DroneEntity::getSerialNumber)
-                .toList();
+        return droneMapper.toDrones(droneEntity);
     }
 
     @Override

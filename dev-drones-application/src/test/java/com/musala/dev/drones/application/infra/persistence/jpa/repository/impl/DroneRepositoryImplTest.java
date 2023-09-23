@@ -73,7 +73,7 @@ class DroneRepositoryImplTest {
     }
 
     @Test
-    void findAvailableDronesForLoading() {
+    void findByFilter() {
         var filter = DroneFilter.builder()
                 .minBatteryLevel(25)
                 .states(List.of(State.IDLE))
@@ -84,7 +84,12 @@ class DroneRepositoryImplTest {
                 .serialNumber(serialNumber)
                 .build()));
         doReturn(droneEntities).when(droneJpaRepository).findByFilter(filter);
-        assertThat(droneRepository.findAvailableDronesForLoading()).isEqualTo(List.of(serialNumber));
+        var drones = List.of(Drone.builder()
+                .serialNumber(serialNumber)
+                .build());
+        doReturn(drones).when(droneMapper).toDrones(droneEntities);
+
+        assertThat(droneRepository.findByFilter(filter)).isEqualTo(drones);
     }
 
     @Test
