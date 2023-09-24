@@ -10,10 +10,8 @@ import com.musala.dev.drones.application.app.service.DroneService;
 import com.musala.dev.drones.application.app.service.MedicationService;
 import com.musala.dev.drones.application.domain.model.Drone;
 import com.musala.dev.drones.application.domain.model.Medication;
-import com.musala.dev.drones.application.infra.api.rest.mapper.DroneRequestMapper;
-import com.musala.dev.drones.application.infra.api.rest.mapper.DroneResponseMapper;
-import com.musala.dev.drones.application.infra.api.rest.mapper.MedicationRequestMapper;
-import com.musala.dev.drones.application.infra.api.rest.mapper.MedicationResponseMapper;
+import com.musala.dev.drones.application.infra.api.rest.mapper.DroneDtoMapper;
+import com.musala.dev.drones.application.infra.api.rest.mapper.MedicationDtoMapper;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,15 +32,11 @@ class DroneControllerTest {
     @InjectMocks
     private DroneController droneController;
     @Mock
-    private DroneRequestMapper droneRequestMapper;
-    @Mock
-    private DroneResponseMapper droneResponseMapper;
+    private DroneDtoMapper droneDtoMapper;
     @Mock
     private DroneRepository droneRepository;
     @Mock
-    private MedicationRequestMapper medicationRequestMapper;
-    @Mock
-    private MedicationResponseMapper medicationResponseMapper;
+    private MedicationDtoMapper medicationDtoMapper;
     @Mock
     private MedicationService medicationService;
     @Mock
@@ -55,11 +49,11 @@ class DroneControllerTest {
         var registerDroneDto = random.nextObject(RegisterDroneDto.class);
 
         var droneToRegister = random.nextObject(Drone.class);
-        doReturn(droneToRegister).when(droneRequestMapper).toDrone(registerDroneDto);
+        doReturn(droneToRegister).when(droneDtoMapper).toDrone(registerDroneDto);
         var registeredDrone = random.nextObject(Drone.class);
         doReturn(registeredDrone).when(droneRepository).register(droneToRegister);
         var droneDto = random.nextObject(DroneDto.class);
-        doReturn(droneDto).when(droneResponseMapper).toDroneDto(registeredDrone);
+        doReturn(droneDto).when(droneDtoMapper).toDroneDto(registeredDrone);
 
         assertThat(droneController.register(registerDroneDto)).isEqualTo(ResponseEntity.ok(droneDto));
     }
@@ -72,11 +66,11 @@ class DroneControllerTest {
                 .build();
 
         var medicationsToLoad = List.of(random.nextObject(Medication.class));
-        doReturn(medicationsToLoad).when(medicationRequestMapper).toMedications(requestDto.medications());
+        doReturn(medicationsToLoad).when(medicationDtoMapper).toMedications(requestDto.medications());
         var loadedMedications = List.of(random.nextObject(Medication.class));
         doReturn(loadedMedications).when(medicationService).loadMedications(serialNumber, medicationsToLoad);
         var loadedMedicationsDto = List.of(random.nextObject(MedicationDto.class));
-        doReturn(loadedMedicationsDto).when(medicationResponseMapper).toMedications(loadedMedications);
+        doReturn(loadedMedicationsDto).when(medicationDtoMapper).toMedicationDtos(loadedMedications);
 
         assertThat(droneController.loadMedications(serialNumber, requestDto)).isEqualTo(ResponseEntity.ok(loadedMedicationsDto));
     }
@@ -88,7 +82,7 @@ class DroneControllerTest {
         var loadedMedications = List.of(random.nextObject(Medication.class));
         doReturn(loadedMedications).when(droneService).getLoadedMedications(serialNumber);
         var loadedMedicationsDto = List.of(random.nextObject(MedicationDto.class));
-        doReturn(loadedMedicationsDto).when(medicationResponseMapper).toMedications(loadedMedications);
+        doReturn(loadedMedicationsDto).when(medicationDtoMapper).toMedicationDtos(loadedMedications);
 
         assertThat(droneController.getLoadedMedications(serialNumber)).isEqualTo(ResponseEntity.ok(loadedMedicationsDto));
     }

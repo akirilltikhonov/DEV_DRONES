@@ -8,10 +8,8 @@ import com.musala.dev.drones.application.app.port.DroneRepository;
 import com.musala.dev.drones.application.app.service.DroneService;
 import com.musala.dev.drones.application.app.service.MedicationService;
 import com.musala.dev.drones.application.domain.model.Drone;
-import com.musala.dev.drones.application.infra.api.rest.mapper.DroneRequestMapper;
-import com.musala.dev.drones.application.infra.api.rest.mapper.DroneResponseMapper;
-import com.musala.dev.drones.application.infra.api.rest.mapper.MedicationRequestMapper;
-import com.musala.dev.drones.application.infra.api.rest.mapper.MedicationResponseMapper;
+import com.musala.dev.drones.application.infra.api.rest.mapper.DroneDtoMapper;
+import com.musala.dev.drones.application.infra.api.rest.mapper.MedicationDtoMapper;
 import com.musala.dev.drones.client.DroneControllerApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,19 +32,17 @@ import java.util.List;
 @RequestMapping("/dev-drones")
 public class DroneController implements DroneControllerApi {
 
-    private final DroneRequestMapper droneRequestMapper;
-    private final DroneResponseMapper droneResponseMapper;
+    private final DroneDtoMapper droneDtoMapper;
     private final DroneRepository droneRepository;
-    private final MedicationRequestMapper medicationRequestMapper;
-    private final MedicationResponseMapper medicationResponseMapper;
+    private final MedicationDtoMapper medicationDtoMapper;
     private final MedicationService medicationService;
     private final DroneService droneService;
 
     @PostMapping(value = "/register")
     public ResponseEntity<DroneDto> register(@RequestBody @Valid RegisterDroneDto registerDroneDto) {
-        var droneToRegister = droneRequestMapper.toDrone(registerDroneDto);
+        var droneToRegister = droneDtoMapper.toDrone(registerDroneDto);
         var registeredDrone = droneRepository.register(droneToRegister);
-        return ResponseEntity.ok(droneResponseMapper.toDroneDto(registeredDrone));
+        return ResponseEntity.ok(droneDtoMapper.toDroneDto(registeredDrone));
     }
 
     @PutMapping(value = "/{serialNumber}/medications")
@@ -54,15 +50,15 @@ public class DroneController implements DroneControllerApi {
             @PathVariable @NotNull String serialNumber,
             @RequestBody @NotNull @Valid LoadMedicationRequestDto requestDto
     ) {
-        var medicationsToLoad = medicationRequestMapper.toMedications(requestDto.medications());
+        var medicationsToLoad = medicationDtoMapper.toMedications(requestDto.medications());
         var loadedMedications = medicationService.loadMedications(serialNumber, medicationsToLoad);
-        return ResponseEntity.ok(medicationResponseMapper.toMedications(loadedMedications));
+        return ResponseEntity.ok(medicationDtoMapper.toMedicationDtos(loadedMedications));
     }
 
     @GetMapping(value = "/{serialNumber}/medications")
     public ResponseEntity<List<MedicationDto>> getLoadedMedications(@PathVariable @NotNull String serialNumber) {
         var loadedMedications = droneService.getLoadedMedications(serialNumber);
-        return ResponseEntity.ok(medicationResponseMapper.toMedications(loadedMedications));
+        return ResponseEntity.ok(medicationDtoMapper.toMedicationDtos(loadedMedications));
     }
 
     @GetMapping(value = "/available-drones")
