@@ -1,6 +1,6 @@
 package com.musala.dev.drones.application.integrationtest.layer.persintence.jpa.test.repository.impl;
 
-import com.musala.dev.drones.application.app.port.DroneRepository;
+import com.musala.dev.drones.application.app.port.repository.DroneRepository;
 import com.musala.dev.drones.application.domain.model.Drone;
 import com.musala.dev.drones.application.domain.model.enums.State;
 import com.musala.dev.drones.application.domain.model.filter.DroneFilter;

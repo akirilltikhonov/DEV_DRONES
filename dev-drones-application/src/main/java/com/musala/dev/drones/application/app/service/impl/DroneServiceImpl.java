@@ -1,6 +1,6 @@
 package com.musala.dev.drones.application.app.service.impl;
 
-import com.musala.dev.drones.application.app.port.DroneRepository;
+import com.musala.dev.drones.application.app.port.repository.DroneRepository;
 import com.musala.dev.drones.application.app.service.DroneService;
 import com.musala.dev.drones.application.domain.model.Drone;
 import com.musala.dev.drones.application.domain.model.Medication;

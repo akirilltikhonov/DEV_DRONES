@@ -1,7 +1,7 @@
 package com.musala.dev.drones.application.integrationtest.layer.persintence.jpa.test.repository.impl;
 
-import com.musala.dev.drones.application.app.port.DroneRepository;
-import com.musala.dev.drones.application.app.port.MedicationRepository;
+import com.musala.dev.drones.application.app.port.repository.DroneRepository;
+import com.musala.dev.drones.application.app.port.repository.MedicationRepository;
 import com.musala.dev.drones.application.domain.model.enums.State;
 import com.musala.dev.drones.application.infra.persistence.jpa.mapper.MedicationMapper;
 import com.musala.dev.drones.application.infra.persistence.jpa.repository.DroneJpaRepository;

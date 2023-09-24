@@ -5,7 +5,7 @@ import com.musala.dev.drones.api.dto.MedicationDto;
 import com.musala.dev.drones.api.dto.RegisterDroneDto;
 import com.musala.dev.drones.api.dto.load.LoadMedicationDto;
 import com.musala.dev.drones.api.dto.load.LoadMedicationRequestDto;
-import com.musala.dev.drones.application.app.port.DroneRepository;
+import com.musala.dev.drones.application.app.port.repository.DroneRepository;
 import com.musala.dev.drones.application.app.service.DroneService;
 import com.musala.dev.drones.application.app.service.MedicationService;
 import com.musala.dev.drones.application.domain.model.Drone;

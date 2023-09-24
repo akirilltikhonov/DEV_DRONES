@@ -1,6 +1,6 @@
 package com.musala.dev.drones.application.infra.persistence.jpa.repository.impl;
 
-import com.musala.dev.drones.application.app.port.EventRepository;
+import com.musala.dev.drones.application.app.port.repository.EventRepository;
 import com.musala.dev.drones.application.domain.model.Event;
 import com.musala.dev.drones.application.infra.persistence.jpa.mapper.EventMapper;
 import com.musala.dev.drones.application.infra.persistence.jpa.repository.EventJpaRepository;

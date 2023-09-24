@@ -1,6 +1,6 @@
 package com.musala.dev.drones.application.infra.persistence.jpa.repository.impl;
 
-import com.musala.dev.drones.application.app.port.DroneRepository;
+import com.musala.dev.drones.application.app.port.repository.DroneRepository;
 import com.musala.dev.drones.application.domain.exception.notfound.DroneNotFoundException;
 import com.musala.dev.drones.application.domain.model.Drone;
 import com.musala.dev.drones.application.domain.model.enums.State;

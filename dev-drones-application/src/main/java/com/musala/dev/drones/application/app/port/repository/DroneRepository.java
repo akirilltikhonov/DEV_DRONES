@@ -1,4 +1,4 @@
-package com.musala.dev.drones.application.app.port;
+package com.musala.dev.drones.application.app.port.repository;
 
 import com.musala.dev.drones.application.domain.model.Drone;
 import com.musala.dev.drones.application.domain.model.filter.DroneFilter;

@@ -1,7 +1,7 @@
 package com.musala.dev.drones.application.app.service.impl;
 
-import com.musala.dev.drones.application.app.port.DroneRepository;
-import com.musala.dev.drones.application.app.port.EventRepository;
+import com.musala.dev.drones.application.app.port.repository.DroneRepository;
+import com.musala.dev.drones.application.app.port.repository.EventRepository;
 import com.musala.dev.drones.application.domain.model.Drone;
 import com.musala.dev.drones.application.domain.model.Event;
 import com.musala.dev.drones.application.domain.service.factory.event.EventFactory;
