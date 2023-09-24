@@ -13,7 +13,7 @@ class MedicationEntityGeneratorTest {
     private void assertNextMedicationEntity(MedicationEntity medication) {
         assertThat(medication).isNotNull();
         assertThat(medication).hasNoNullFieldsOrPropertiesExcept("medicationId", "drone");
-        assertThat(medication).hasAllNullFieldsOrPropertiesExcept("name", "weight", "code");
+        assertThat(medication).hasAllNullFieldsOrPropertiesExcept("name", "weight", "code", "image");
     }
 
     @Test

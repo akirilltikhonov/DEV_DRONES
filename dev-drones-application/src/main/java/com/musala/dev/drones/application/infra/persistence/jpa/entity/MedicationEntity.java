@@ -1,9 +1,12 @@
 package com.musala.dev.drones.application.infra.persistence.jpa.entity;
 
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +22,7 @@ import javax.persistence.Table;
 @Table(name = "medications")
 @Getter
 @Setter
+@TypeDef(name = "json", typeClass = JsonType.class)
 public class MedicationEntity {
 
     @Id
@@ -49,6 +53,10 @@ public class MedicationEntity {
 
     @Column(name = "code")
     private String code;
+
+    @Type(type = "json")
+    @Column(name = "image_metadata", columnDefinition = "jsonb")
+    private ImageMetadataJson image;
 
     @Override
     public boolean equals(Object o) {

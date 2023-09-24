@@ -29,6 +29,7 @@
             <column name="code" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
+            <column name="image_metadata" type="jsonb"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>
