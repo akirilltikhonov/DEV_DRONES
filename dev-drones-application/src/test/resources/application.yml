@@ -27,3 +27,5 @@ drone-executor:
   drones-per-request: 10
   min-battery-level-to-log: 50
   await-termination: 2000
+
+s3.bucketName: bucket-name

@@ -7,6 +7,6 @@ import lombok.Value;
 @Builder(toBuilder = true)
 public class Image {
 
-    Long imageId;
-    String imageBase64;
+    String imageId;
+    String s3Url;
 }

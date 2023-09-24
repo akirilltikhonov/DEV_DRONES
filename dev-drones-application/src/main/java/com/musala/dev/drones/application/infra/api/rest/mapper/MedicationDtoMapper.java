@@ -16,13 +16,12 @@ import java.util.List;
         , unmappedSourcePolicy = ReportingPolicy.ERROR
         , unmappedTargetPolicy = ReportingPolicy.ERROR
         , injectionStrategy = InjectionStrategy.CONSTRUCTOR
-        , uses = {
-        ImageDtoMapper.class
-}
 )
 public interface MedicationDtoMapper {
 
     @Mapping(target = "medicationId", ignore = true)
+    @Mapping(target = "image", ignore = true)
+    @BeanMapping(ignoreUnmappedSourceProperties = {"image"})
     Medication toMedication(LoadMedicationDto medication);
 
     List<Medication> toMedications(List<LoadMedicationDto> medications);
