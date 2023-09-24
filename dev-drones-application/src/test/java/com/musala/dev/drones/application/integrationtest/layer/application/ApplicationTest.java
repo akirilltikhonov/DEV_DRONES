@@ -1,6 +1,6 @@
 package com.musala.dev.drones.application.integrationtest.layer.application;
 
-import com.musala.dev.drones.application.infra.testcontainer.PostgresTestcontainerInitializer;
+import com.musala.dev.drones.application.infra.testcontainer.TestcontainersInitializer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(classes = TestApplicationConfiguration.class)
-@ContextConfiguration(initializers = PostgresTestcontainerInitializer.class)
+@ContextConfiguration(initializers = TestcontainersInitializer.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Rollback(value = false)
 @Transactional(propagation = Propagation.NEVER)

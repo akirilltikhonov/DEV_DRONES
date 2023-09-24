@@ -1,6 +1,6 @@
 package com.musala.dev.drones.application.integrationtest.layer.persintence.jpa;
 
-import com.musala.dev.drones.application.infra.testcontainer.PostgresTestcontainerInitializer;
+import com.musala.dev.drones.application.infra.testcontainer.postgres.PostgresTestcontainerInitializer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

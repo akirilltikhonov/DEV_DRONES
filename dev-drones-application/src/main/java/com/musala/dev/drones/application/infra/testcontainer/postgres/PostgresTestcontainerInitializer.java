@@ -1,4 +1,4 @@
-package com.musala.dev.drones.application.infra.testcontainer;
+package com.musala.dev.drones.application.infra.testcontainer.postgres;
 
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
