@@ -11,7 +11,7 @@ import java.util.List;
 
 @Mapper(
         componentModel = "spring"
-        , unmappedSourcePolicy = ReportingPolicy.ERROR
+//        , unmappedSourcePolicy = ReportingPolicy.ERROR
         , unmappedTargetPolicy = ReportingPolicy.ERROR
 )
 public interface MedicationMapper {
@@ -22,6 +22,7 @@ public interface MedicationMapper {
     @Mapping(target = "drone", ignore = true)
     List<MedicationEntity> toMedicationEntities(List<Medication> medications);
 
+    @Mapping(target = "image", ignore = true)
     @BeanMapping(ignoreUnmappedSourceProperties = {"drone"})
     Medication toMedication(MedicationEntity medicationEntity);
 

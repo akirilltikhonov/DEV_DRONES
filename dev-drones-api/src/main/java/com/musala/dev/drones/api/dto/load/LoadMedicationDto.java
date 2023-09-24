@@ -18,6 +18,7 @@ public record LoadMedicationDto(
         Integer weight,
         @NotNull
         @Pattern(regexp = "^[\\d_A-Z]+$")
-        String code
+        String code,
+        LoadImageDto image
 ) {
 }

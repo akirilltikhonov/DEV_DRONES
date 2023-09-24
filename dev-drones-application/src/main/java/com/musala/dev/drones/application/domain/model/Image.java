@@ -5,11 +5,8 @@ import lombok.Value;
 
 @Value
 @Builder(toBuilder = true)
-public class Medication {
+public class Image {
 
-    Long medicationId;
-    String name;
-    Integer weight;
-    String code;
-    Image image;
+    Long imageId;
+    String imageBase64;
 }
