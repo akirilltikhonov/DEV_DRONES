@@ -7,6 +7,7 @@ public record MedicationDto(
         Long medicationId,
         String name,
         Integer weight,
-        String code
+        String code,
+        ImageDto image
 ) {
 }

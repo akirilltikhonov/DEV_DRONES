@@ -1,7 +1,8 @@
-package com.musala.dev.drones.application.infra.persistence.jpa.mapper;
+package com.musala.dev.drones.application.infra.api.rest.mapper;
 
+import com.musala.dev.drones.api.dto.ImageDto;
+import com.musala.dev.drones.api.dto.load.LoadImageDto;
 import com.musala.dev.drones.application.domain.model.Image;
-import com.musala.dev.drones.application.infra.persistence.jpa.entity.ImageMetadataJson;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,11 +13,12 @@ import org.mapstruct.ReportingPolicy;
         , unmappedSourcePolicy = ReportingPolicy.ERROR
         , unmappedTargetPolicy = ReportingPolicy.ERROR
 )
-public interface ImageMapper {
+public interface ImageDtoMapper {
+
+    @Mapping(target = "imageId", ignore = true)
+    @Mapping(target = "s3Url", ignore = true)
+    Image toImage(LoadImageDto image);
 
     @BeanMapping(ignoreUnmappedSourceProperties = {"imageBase64"})
-    ImageMetadataJson toImageJson(Image image);
-
-    @Mapping(target = "imageBase64", ignore = true)
-    Image toImage(ImageMetadataJson image);
+    ImageDto toImageDto(Image Image);
 }

@@ -27,12 +27,12 @@ public class S3AdapterImpl implements S3Adapter {
 
     @Override
     public Image storeImage(String imageBase64) {
-        String key = UUID.randomUUID().toString();
+        UUID key = UUID.randomUUID();
         byte[] content = Base64Coder.decodeBase64(imageBase64);
         try (ByteArrayInputStream stream = new ByteArrayInputStream(content)) {
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentLength(content.length);
-            var request = new PutObjectRequest(bucketName, key, stream, metadata);
+            var request = new PutObjectRequest(bucketName, key.toString(), stream, metadata);
             s3Client.putObject(request);
             log.info("S3 Object successfully put: key={}, bucket={}", key, bucketName);
         } catch (IOException e) {
@@ -40,7 +40,7 @@ public class S3AdapterImpl implements S3Adapter {
                     key, bucketName, e.getMessage());
         }
 
-        var objectRequest = new GetObjectRequest(bucketName, key);
+        var objectRequest = new GetObjectRequest(bucketName, key.toString());
         var s3Object = s3Client.getObject(objectRequest);
         return Image.builder()
                 .imageId(key)

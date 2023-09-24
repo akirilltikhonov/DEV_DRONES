@@ -4,7 +4,8 @@ You can run test and application from root dev-drones using:
 ```
 ./mvnw test
 ```
-For integration test and run application you need launch Docker Desktop because application use PostgresSQL Docker container
+For integration test and run application you need launch Docker Desktop because 
+application use PostgresSQL and LocalStack Docker containers
 ```
 ./mvnw clean spring-boot:run
 ```

@@ -2,7 +2,9 @@ package com.musala.dev.drones.application.app.service.impl;
 
 import com.musala.dev.drones.application.app.port.DroneRepository;
 import com.musala.dev.drones.application.app.port.MedicationRepository;
+import com.musala.dev.drones.application.app.service.ImageService;
 import com.musala.dev.drones.application.domain.model.Drone;
+import com.musala.dev.drones.application.domain.model.Image;
 import com.musala.dev.drones.application.domain.model.Medication;
 import com.musala.dev.drones.application.domain.service.MedicationLoadValidation;
 import org.junit.jupiter.api.Test;
@@ -28,6 +30,8 @@ class MedicationServiceImplTest {
     @Mock
     private MedicationLoadValidation medicationLoadValidation;
     @Mock
+    private ImageService imageService;
+    @Mock
     private MedicationRepository medicationRepository;
 
     @Test
@@ -38,8 +42,11 @@ class MedicationServiceImplTest {
         var drone = Drone.builder().serialNumber(UUID.randomUUID().toString()).build();
         doReturn(drone).when(droneRepository).findToLoadMedication(serialNumber);
 
+        var medicationsWithSavedImages = List.of(Medication.builder().medicationId(1L).image(Image.builder().build()).build());
+        doReturn(medicationsWithSavedImages).when(imageService).saveImages(medications);
+
         var loadedMedications = List.of(Medication.builder().medicationId(1L).build());
-        doReturn(loadedMedications).when(medicationRepository).loadMedications(serialNumber, medications);
+        doReturn(loadedMedications).when(medicationRepository).loadMedications(serialNumber, medicationsWithSavedImages);
 
         assertThat(medicationService.loadMedications(serialNumber, medications))
                 .isEqualTo(loadedMedications);

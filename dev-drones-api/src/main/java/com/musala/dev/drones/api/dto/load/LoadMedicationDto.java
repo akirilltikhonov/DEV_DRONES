@@ -2,6 +2,7 @@ package com.musala.dev.drones.api.dto.load;
 
 import lombok.Builder;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ public record LoadMedicationDto(
         @NotNull
         @Pattern(regexp = "^[\\d_A-Z]+$")
         String code,
+        @Valid
         LoadImageDto image
 ) {
 }
