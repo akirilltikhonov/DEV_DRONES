@@ -5,8 +5,7 @@ import lombok.Builder;
 import java.util.UUID;
 
 @Builder
-public record ImageDto(
-        UUID imageId,
-        String s3Url
-) {
+public class ImageDto {
+    UUID imageId;
+    String s3Url;
 }

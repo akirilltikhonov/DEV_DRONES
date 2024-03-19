@@ -63,7 +63,7 @@ public class DroneRepositoryTest extends JpaTest {
         var serialNumbers = droneRepository.findByFilter(filter)
                 .stream()
                 .map(Drone::getSerialNumber)
-                .toList();
+                .collect(Collectors.toList());
         assertThat(serialNumbers).containsAll(List.of(serialNumber1, serialNumber2));
     }
 

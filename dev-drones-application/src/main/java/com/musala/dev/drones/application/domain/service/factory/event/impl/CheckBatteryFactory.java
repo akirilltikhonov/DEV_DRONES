@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Component
 public class CheckBatteryFactory implements EventFactory {
@@ -29,6 +31,6 @@ public class CheckBatteryFactory implements EventFactory {
     public List<Event> buildEvents(List<Drone> drones) {
         return drones.stream()
                 .map(this::buildEvent)
-                .toList();
+                .collect(Collectors.toList());
     }
 }

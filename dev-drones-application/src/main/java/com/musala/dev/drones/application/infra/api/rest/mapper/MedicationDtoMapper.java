@@ -13,7 +13,7 @@ import java.util.List;
 @Mapper(
         componentModel = "spring"
         , unmappedSourcePolicy = ReportingPolicy.ERROR
-        , unmappedTargetPolicy = ReportingPolicy.ERROR
+        , unmappedTargetPolicy = ReportingPolicy.IGNORE
         , injectionStrategy = InjectionStrategy.CONSTRUCTOR
         , uses = {
                 ImageDtoMapper.class

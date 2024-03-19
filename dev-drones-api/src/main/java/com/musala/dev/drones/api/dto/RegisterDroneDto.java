@@ -9,19 +9,18 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Builder(toBuilder = true)
-public record RegisterDroneDto(
+public class RegisterDroneDto {
         @NotNull
         @Size(max = 100)
-        String serialNumber,
+        String serialNumber;
         @NotNull
-        Model model,
+        Model model;
         @NotNull
         @Min(0)
         @Max(100)
-        Integer batteryLevel,
+        Integer batteryLevel;
         @NotNull
         @Min(0)
         @Max(500)
-        Integer weightLimit
-) {
+        Integer weightLimit;
 }

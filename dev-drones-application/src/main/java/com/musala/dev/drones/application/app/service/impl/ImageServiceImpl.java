@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,6 @@ public class ImageServiceImpl implements ImageService {
                 .map(m -> m.toBuilder()
                         .image(s3Adapter.storeImage(m.getImage().getImageBase64()))
                         .build())
-                .toList();
+                .collect(Collectors.toList());
     }
 }

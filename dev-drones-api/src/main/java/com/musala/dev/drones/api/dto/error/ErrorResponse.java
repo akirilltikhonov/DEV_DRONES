@@ -1,6 +1,8 @@
 package com.musala.dev.drones.api.dto.error;
 
-public record ErrorResponse(
-        String message
-) {
+public class ErrorResponse {
+    String message;
+
+    public ErrorResponse(final String message) {
+    }
 }

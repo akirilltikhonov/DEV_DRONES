@@ -11,7 +11,7 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(
         componentModel = "spring"
         , unmappedSourcePolicy = ReportingPolicy.ERROR
-        , unmappedTargetPolicy = ReportingPolicy.ERROR
+        , unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 public interface ImageDtoMapper {
 

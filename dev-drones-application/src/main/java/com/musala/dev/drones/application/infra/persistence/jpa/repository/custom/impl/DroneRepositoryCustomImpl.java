@@ -17,18 +17,18 @@ public class DroneRepositoryCustomImpl implements DroneRepositoryCustom {
     public List<DroneEntity> findByFilter(DroneFilter filter) {
         final String sql = "SELECT d FROM DroneEntity d " +
                 "WHERE 1 = 1 " +
-                (filter.minBatteryLevel() != null
+                (filter.getMinBatteryLevel() != null
                         ? "AND d.batteryLevel >= :minBatteryLevel " : "") +
-                (filter.states() != null
+                (filter.getStates() != null
                         ? "AND d.state IN :states " : "");
 
         final var query = em.createQuery(sql, DroneEntity.class);
 
-        if (filter.minBatteryLevel() != null) {
-            query.setParameter("minBatteryLevel", filter.minBatteryLevel());
+        if (filter.getMinBatteryLevel() != null) {
+            query.setParameter("minBatteryLevel", filter.getMinBatteryLevel());
         }
-        if (filter.states() != null) {
-            query.setParameter("states", filter.states());
+        if (filter.getStates() != null) {
+            query.setParameter("states", filter.getStates());
         }
         return query.getResultList();
     }

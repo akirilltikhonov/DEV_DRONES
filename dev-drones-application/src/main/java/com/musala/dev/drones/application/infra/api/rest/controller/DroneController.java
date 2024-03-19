@@ -50,7 +50,7 @@ public class DroneController implements DroneControllerApi {
             @PathVariable @NotNull String serialNumber,
             @RequestBody @NotNull @Valid LoadMedicationRequestDto requestDto
     ) {
-        var medicationsToLoad = medicationDtoMapper.toMedications(requestDto.medications());
+        var medicationsToLoad = medicationDtoMapper.toMedications(requestDto.getMedications());
         var loadedMedications = medicationService.loadMedications(serialNumber, medicationsToLoad);
         return ResponseEntity.ok(medicationDtoMapper.toMedicationDtos(loadedMedications));
     }

@@ -66,7 +66,7 @@ class DroneControllerTest {
                 .build();
 
         var medicationsToLoad = List.of(random.nextObject(Medication.class));
-        doReturn(medicationsToLoad).when(medicationDtoMapper).toMedications(requestDto.medications());
+        doReturn(medicationsToLoad).when(medicationDtoMapper).toMedications(requestDto.getMedications());
         var loadedMedications = List.of(random.nextObject(Medication.class));
         doReturn(loadedMedications).when(medicationService).loadMedications(serialNumber, medicationsToLoad);
         var loadedMedicationsDto = List.of(random.nextObject(MedicationDto.class));

@@ -9,18 +9,17 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Builder(toBuilder = true)
-public record LoadMedicationDto(
+public class LoadMedicationDto {
         @NotNull
         @Pattern(regexp = "^[\\w_-]+$")
-        String name,
+        String name;
         @NotNull
         @Min(0)
         @Max(500)
-        Integer weight,
+        Integer weight;
         @NotNull
         @Pattern(regexp = "^[\\d_A-Z]+$")
-        String code,
+        String code;
         @Valid
-        LoadImageDto image
-) {
+        LoadImageDto image;
 }
