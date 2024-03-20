@@ -23,6 +23,7 @@ pipeline {
                     sourcePattern: 'dev-drones-application/src/main'
                     )
             }
+        }
         stage('Check Test Coverage3: dev-drones-client') {
             steps {
                 jacoco(
