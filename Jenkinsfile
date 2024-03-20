@@ -9,8 +9,8 @@ pipeline {
         stage('Check Test Coverage: ') {
             steps {
                 jacoco(
-                    execPattern: '**/jacoco/*.exec',
-                    classPattern: '**/classes/java/main',
+                    execPattern: '**/target/jacoco/*.exec',
+                    classPattern: '**/target/classes/com',
                     sourcePattern: '**/src/main'
                     )
             }
@@ -18,8 +18,8 @@ pipeline {
         stage('Check Test Coverage2: ') {
             steps {
                 jacoco(
-                    execPattern: '**/jacoco/*.exec',
-                    classPattern: '**/classes/java/main',
+                    execPattern: '**/target/jacoco/*.exec',
+                    classPattern: '**/target/classes/com',
                     sourcePattern: '**/src/main'
                     )
             }
