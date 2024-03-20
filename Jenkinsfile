@@ -15,5 +15,14 @@ pipeline {
                     )
             }
         }
+        stage('Check Test Coverage2: ') {
+            steps {
+                jacoco(
+                    execPattern: '**/target/jacoco/*.exec',
+                    classPattern: '**/target/classes/java/main',
+                    sourcePattern: '**/src/main'
+                    )
+            }
+        }
     }
 }
